@@ -24,6 +24,7 @@ class Registrasi extends BaseController
     {
         $rules = [
             'nama' => 'alpha_space',
+            'username' => 'required|alpha_numeric',
             'tgl_lahir' => 'valid_date',
             'nomor_hp' => 'numeric'
         ];
@@ -32,10 +33,58 @@ class Registrasi extends BaseController
         }
         $peserta = new PesertaModel();
         $hasil = $this->request->getPost();
-        $id = $peserta->insert($hasil);
-        $this->session->set('newId', $id);
+        $hasil['password'] = '123';
+        $peserta->insert($hasil);
 
-        return view('registrasi/suksesView');
+        return redirect()->to('/registrasi/login')->with('username', $hasil['username']);
+    }
+
+
+    public function login()
+    {
+        $data = [
+            'validasi' => $this->validasi,
+            'pesanError' => $this->session->getFlashdata('pesanError')
+        ];
+        return view('registrasi/loginView', $data);
+    }
+
+    public function login_procs()
+    {
+        $rules = [
+            'username' => 'required|alpha_numeric',
+            'password' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/registrasi/login')->withInput()->with('validasi', $this->validasi);
+        }
+        $peserta = new PesertaModel();
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        $row = $peserta->where('username', $username)->first();
+
+        if ($row) {
+            if ($row['password'] == $password) {
+                $sessData = [
+                    'id' => $peserta->id,
+                    'isLoggedIn' => TRUE
+                ];
+
+                $this->session->set($sessData);
+                return redirect()->to('/registrasi/dataku');
+            }
+            $pesanError = 'Password yang anda masukkan salah!';
+            return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
+        }
+        $pesanError = 'Username tidak ditemukan!';
+        return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
+
+
+
+        //if($hasil==$)
+        //$this->session->set('newId', $id);
+
     }
 
     public function dataku()
@@ -62,5 +111,24 @@ class Registrasi extends BaseController
         return view('layoutView', $data);
 
         return view('registrasi/suksesView', $data);
+    }
+
+    public function send_email($subject, $isi)
+    {
+        $email = \Config\Services::email();
+
+        $email->setFrom('csbimbelajj@gmail.com', 'Customer Services');
+        $email->setTo('nafisbillah@gmail.com');
+        //$email->setCC('another@another-example.com');
+        //$email->setBCC('them@their-example.com');
+
+        $email->setSubject($subject);
+        $email->setMessage($isi);
+
+        if ($email->send()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
