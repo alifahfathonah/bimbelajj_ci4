@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Okt 2020 pada 15.37
+-- Waktu pembuatan: 18 Okt 2020 pada 18.15
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.6
 
@@ -36,13 +36,6 @@ CREATE TABLE `migrations` (
   `time` int(11) NOT NULL,
   `batch` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `migrations`
---
-
-INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
-(1, '2020-10-14-020023', 'App\\Database\\Migrations\\TblCalonPeserta', 'default', 'App', 1602655172, 1);
 
 -- --------------------------------------------------------
 
@@ -81,20 +74,13 @@ CREATE TABLE `tbl_peserta` (
   `alamat` varchar(255) DEFAULT NULL,
   `nomor_hp` varchar(12) DEFAULT NULL,
   `asal_sekolah` varchar(255) DEFAULT NULL,
-  `kelas` int(2) UNSIGNED NOT NULL,
+  `kelas` int(11) UNSIGNED NOT NULL,
   `alamat_sekolah` varchar(255) DEFAULT NULL,
-  `program_pilihan` int(2) UNSIGNED NOT NULL,
+  `program_pilihan` int(11) UNSIGNED NOT NULL,
+  `status_diterima` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `tbl_peserta`
---
-
-INSERT INTO `tbl_peserta` (`id`, `username`, `password`, `salt`, `nama`, `tgl_lahir`, `alamat`, `nomor_hp`, `asal_sekolah`, `kelas`, `alamat_sekolah`, `program_pilihan`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 'mundir muzaini', '2020-10-17', 'malang', '085700500836', 'malang', 1, 'malang jawa timur', 1, '2020-10-17 02:21:51', '2020-10-17 02:21:51'),
-(2, NULL, NULL, NULL, 'mundir muzaini', '1111-10-17', 'malang indonesisa', '085700500836', 'malang', 1, 'malang jawa timur', 5, '2020-10-17 02:24:26', '2020-10-17 02:24:26');
 
 -- --------------------------------------------------------
 
@@ -131,8 +117,10 @@ CREATE TABLE `tbl_tutor` (
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `modified_at` datetime NOT NULL
+  `nomor_hp` varchar(15) NOT NULL,
+  `jabatan` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -199,7 +187,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_kelas`
@@ -211,7 +199,7 @@ ALTER TABLE `tbl_kelas`
 -- AUTO_INCREMENT untuk tabel `tbl_peserta`
 --
 ALTER TABLE `tbl_peserta`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_program_pilihan`
