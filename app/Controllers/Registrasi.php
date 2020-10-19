@@ -35,7 +35,15 @@ class Registrasi extends BaseController
         $hasil = $this->request->getPost();
         $hasil['password'] = '123';
         $peserta->insert($hasil);
+        $html = '<h1>Data Calon Peserta Baru</h1>';
+        $html .= '<ul>';
+        $html .= '<li>Nama ' . $hasil['nama'] . '</li>';
+        $html .= '<li>Username ' . $hasil['username'] . '</li>';
+        $html .= '<li>Password ' . $hasil['password'] . '</li>';
+        $html .= '<li>No HP ' . $hasil['nomor_hp'] . '</li>';
+        $html .= '</ul>';
 
+        $this->_send_email('Peserta baru ' . $hasil['username'], $html);
         return redirect()->to('/registrasi/login')->with('username', $hasil['username']);
     }
 
@@ -67,12 +75,12 @@ class Registrasi extends BaseController
         if ($row) {
             if ($row['password'] == $password) {
                 $sessData = [
-                    'id' => $peserta->id,
+                    'id' => $row['id'],
                     'isLoggedIn' => TRUE
                 ];
 
                 $this->session->set($sessData);
-                return redirect()->to('/registrasi/dataku');
+                return redirect()->to('/peserta');
             }
             $pesanError = 'Password yang anda masukkan salah!';
             return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
@@ -86,40 +94,20 @@ class Registrasi extends BaseController
         //$this->session->set('newId', $id);
 
     }
-
-    public function dataku()
+    public function logout()
     {
-        $newId = $this->session->get('newId');
-        $peserta = new PesertaModel();
-        $saya = $peserta->find($newId);
-        $program = new ProgramModel();
-        $nama_program = $program->find($saya['program_pilihan']);
-        $kelas = new KelasModel();
-        $nama_kelas = $kelas->find($saya['kelas']);
-
-        $saya['nama_program'] = $nama_program['nama_program'];
-        $saya['nama_kelas'] = $nama_kelas['nama_kelas'];
-
-        $data = [
-            'judulWeb' => 'Registrasi',
-            'judulPage' => 'Registrasi Sukses',
-            'nama'  => $saya['nama'],
-            'program' => $nama_program['nama_program'],
-            'dt'    => $saya
-        ];
-
-        return view('layoutView', $data);
-
-        return view('registrasi/suksesView', $data);
+        $this->session->destroy();
+        return redirect()->to('/registrasi/login');
     }
 
-    public function send_email($subject, $isi)
+
+    protected function _send_email($subject, $isi)
     {
         $email = \Config\Services::email();
 
         $email->setFrom('csbimbelajj@gmail.com', 'Customer Services');
-        $email->setTo('nafisbillah@gmail.com');
-        //$email->setCC('another@another-example.com');
+        $email->setTo('mundinkcoy@gmail.com');
+        //$email->setCC('bimbelajj@gmail.com');
         //$email->setBCC('them@their-example.com');
 
         $email->setSubject($subject);
