@@ -26,7 +26,7 @@
 <body class="account-pages">
 
     <!-- Begin page -->
-    <div class="accountbg" style="background: url('/template/assets/images/bg-2.jpg');background-size: cover;"></div>
+    <div class="accountbg" style="background: url('<?= $bgImage; ?>');background-size: cover;"></div>
 
     <div class="wrapper-page account-page-full">
 

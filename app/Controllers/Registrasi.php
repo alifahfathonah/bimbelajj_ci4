@@ -51,6 +51,10 @@ class Registrasi extends BaseController
     public function login()
     {
         $data = [
+            'bgImage' => '/template/assets/images/bg-2.jpg',
+            'bgLogo' => '/template/assets/images/logo.png',
+            'keterangan' => 'Selamat Datang! silahkan login',
+            'proses' => 'registrasi/login_procs',
             'validasi' => $this->validasi,
             'pesanError' => $this->session->getFlashdata('pesanError')
         ];
@@ -87,13 +91,52 @@ class Registrasi extends BaseController
         }
         $pesanError = 'Username tidak ditemukan!';
         return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
-
-
-
-        //if($hasil==$)
-        //$this->session->set('newId', $id);
-
     }
+
+    public function admin_login()
+    {
+        $data = [
+            'bgImage' => '',
+            'proses' => 'registrasi/admin_login_procs',
+            'validasi' => $this->validasi,
+            'pesanError' => $this->session->getFlashdata('pesanError')
+        ];
+        return view('registrasi/loginView', $data);
+    }
+
+    public function admin_login_procs()
+    {
+        $rules = [
+            'username' => 'required|alpha_numeric',
+            'password' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/registrasi/login')->withInput()->with('validasi', $this->validasi);
+        }
+        $admin = new \App\Models\AdminModel();
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        $row = $admin->where('username', $username)->first();
+
+        if ($row) {
+            if ($row['password'] == $password) {
+                $sessData = [
+                    'id' => $row['id'],
+                    'isLoggedIn' => TRUE,
+                    'isAdmin' => TRUE
+                ];
+
+                $this->session->set($sessData);
+                return redirect()->to('/admin');
+            }
+            $pesanError = 'Password yang anda masukkan salah!';
+            return redirect()->to('/registrasi/admin_login')->withInput()->with('pesanError', $pesanError);
+        }
+        $pesanError = 'Username tidak ditemukan!';
+        return redirect()->to('/registrasi/admin_login')->withInput()->with('pesanError', $pesanError);
+    }
+
     public function logout()
     {
         $this->session->destroy();

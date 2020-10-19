@@ -10,19 +10,19 @@
             <div class="card-box p-5">
                 <h2 class="text-uppercase text-center pb-0">
                     <a href="index.html" class="text-success">
-                        <span><img src="/template/assets/images/logo.png" alt="" height="26"></span>
+                        <span><img src="<<?= $bgLogo; ?>" alt="" height="26"></span>
                     </a>
                 </h2>
                 <div class="row pb-4">
                     <div class="col-sm-12 text-center">
-                        <p class="text-muted">Masuk ke akun anda di Bimbelajj </p>
+                        <p class="text-muted"><?= $keterangan; ?></p>
                         <hr>
                     </div>
                 </div>
                 <?php
                 echo $pesanError;
 
-                echo form_open('registrasi/login_procs', 'class="form-horizontal"');
+                echo form_open($proses, 'class="form-horizontal"');
                 $fld = 'username';
                 $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
                 $extra = [
