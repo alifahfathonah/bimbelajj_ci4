@@ -13,6 +13,10 @@ class Registrasi extends BaseController
         $tbKelas = new KelasModel();
         $tbProgram = new ProgramModel();
         $data = [
+            'bgImage' => base_url() . '/template/assets/images/bg-2.jpg',
+            'bgLogo' => base_url() . '/template/assets/images/logo.png',
+            'keterangan' => 'Pendaftaran Peserta Baru',
+            'proses' => 'registrasi/simpan',
             'validasi' => $this->validasi,
             'dtKelas' => $tbKelas->findAll(),
             'dtProgram' => $tbProgram->findAll()
@@ -29,7 +33,7 @@ class Registrasi extends BaseController
             'nomor_hp' => 'numeric'
         ];
         if (!$this->validate($rules)) {
-            return redirect()->to('/registrasi/index')->withInput()->with('validasi', $this->validasi);
+            return redirect()->to('index')->withInput()->with('validasi', $this->validasi);
         }
         $peserta = new PesertaModel();
         $hasil = $this->request->getPost();
@@ -44,15 +48,15 @@ class Registrasi extends BaseController
         $html .= '</ul>';
 
         $this->_send_email('Peserta baru ' . $hasil['username'], $html);
-        return redirect()->to('/registrasi/login')->with('username', $hasil['username']);
+        return redirect()->to('login')->with('username', $hasil['username']);
     }
 
 
     public function login()
     {
         $data = [
-            'bgImage' => '/template/assets/images/bg-2.jpg',
-            'bgLogo' => '/template/assets/images/logo.png',
+            'bgImage' => base_url() . '/template/assets/images/bg-2.jpg',
+            'bgLogo' => base_url() . '/template/assets/images/logo.png',
             'keterangan' => 'Selamat Datang! silahkan login',
             'proses' => 'registrasi/login_procs',
             'validasi' => $this->validasi,
@@ -69,7 +73,7 @@ class Registrasi extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to('/registrasi/login')->withInput()->with('validasi', $this->validasi);
+            return redirect()->to('login')->withInput()->with('validasi', $this->validasi);
         }
         $peserta = new PesertaModel();
         $username = $this->request->getPost('username');
@@ -84,13 +88,13 @@ class Registrasi extends BaseController
                 ];
 
                 $this->session->set($sessData);
-                return redirect()->to('/peserta');
+                return redirect()->to(base_url('peserta'));
             }
             $pesanError = 'Password yang anda masukkan salah!';
-            return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
+            return redirect()->to('login')->withInput()->with('pesanError', $pesanError);
         }
         $pesanError = 'Username tidak ditemukan!';
-        return redirect()->to('/registrasi/login')->withInput()->with('pesanError', $pesanError);
+        return redirect()->to('login')->withInput()->with('pesanError', $pesanError);
     }
 
     public function admin_login()
@@ -140,7 +144,7 @@ class Registrasi extends BaseController
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/registrasi/login');
+        return redirect()->to('login');
     }
 
 

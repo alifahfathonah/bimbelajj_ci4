@@ -10,15 +10,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="/template/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= base_url() ?>/template/assets/images/favicon.ico">
 
     <!-- App css -->
-    <link href="/template/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/template/assets/css/icons.css" rel="stylesheet" type="text/css" />
-    <link href="/template/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
-    <link href="/template/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="<?= base_url() ?>/template/assets/images/favicon.ico">
 
-    <script src="/template/assets/js/modernizr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> <!-- App css -->
+    <link href="<?= base_url() ?>/template/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>/template/metismenu-master/dist/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>/template/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="<?= base_url() ?>/template/assets/js/modernizr.min.js"></script>
 
 </head>
 
@@ -37,10 +39,10 @@
                 <div class="topbar-left">
                     <a href="index.html" class="logo">
                         <span>
-                            <img src="/template/assets/images/logo.png" alt="" height="22">
+                            <img src="<?= base_url() ?>/template/assets/images/logo.png" alt="" height="22">
                         </span>
                         <i>
-                            <img src="/template/assets/images/logo_sm.png" alt="" height="28">
+                            <img src="<?= base_url() ?>/template/assets/images/logo_sm.png" alt="" height="28">
                         </i>
                     </a>
                 </div>
@@ -48,7 +50,7 @@
                 <!-- User box -->
                 <div class="user-box">
                     <div class="user-img">
-                        <img src="/template/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
+                        <img src="<?= base_url() ?>/template/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
                     </div>
                     <h5><a href="#"><?= $nama; ?></a> </h5>
                     <p class="text-muted"><?= $program; ?></p>
@@ -94,7 +96,7 @@
 
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="/template/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1"><?= $nama; ?><i class="mdi mdi-chevron-down"></i> </span>
+                                <img src="<?= base_url() ?>/template/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1"><?= $nama; ?><i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
                                 <!-- item-->
@@ -123,7 +125,7 @@
                                 </a>
 
                                 <!-- item-->
-                                <a href="/registrasi/logout" class="dropdown-item notify-item">
+                                <a href="<?= base_url() ?>/registrasi/logout" class="dropdown-item notify-item">
                                     <i class="fi-power"></i> <span>Logout</span>
                                 </a>
 
@@ -235,17 +237,19 @@
 
 
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
     <!-- jQuery  -->
-    <script src="/template/assets/js/jquery.min.js"></script>
-    <script src="/template/assets/js/popper.min.js"></script>
-    <script src="/template/assets/js/bootstrap.min.js"></script>
-    <script src="/template/assets/js/metisMenu.min.js"></script>
-    <script src="/template/assets/js/waves.js"></script>
-    <script src="/template/assets/js/jquery.slimscroll.js"></script>
+    <script src="<?= base_url() ?>/template/assets/js/jquery.min.js"></script>
+    <script src="<?= base_url() ?>/template/metismenu-master/dist/metisMenu.min.js"></script>
+    <script src="<?= base_url() ?>/template/assets/js/waves.js"></script>
+    <script src="<?= base_url() ?>/template/assets/js/jquery.slimscroll.js"></script>
 
     <!-- App js -->
-    <script src="/template/assets/js/jquery.core.js"></script>
-    <script src="/template/assets/js/jquery.app.js"></script>
+    <script src="<?= base_url() ?>/template/assets/js/jquery.core.js"></script>
+    <script src="<?= base_url() ?>/template/assets/js/jquery.app.js"></script>
 
 </body>
 

@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 
 
+
 <div class="card">
     <div class="card-block">
 
@@ -10,7 +11,7 @@
             <div class="card-box p-5">
                 <h2 class="text-uppercase text-center pb-0">
                     <a href="index.html" class="text-success">
-                        <span><img src="<<?= $bgLogo; ?>" alt="" height="26"></span>
+                        <span><img src="<?= $bgLogo; ?>" alt="" height="26"></span>
                     </a>
                 </h2>
                 <div class="row pb-4">
@@ -84,7 +85,7 @@
                 <div class="row m-t-50">
                     <div class="col-sm-12 text-center">
                         <hr>
-                        <p class="text-muted">Belum punya akun? <a href="/registrasi" class="text-dark m-l-5"><b>Registrasi</b></a></p>
+                        <p class="text-muted">Belum punya akun? <a href="<?= base_url() ?>/registrasi" class="text-dark m-l-5"><b>Registrasi</b></a></p>
                     </div>
                 </div>
 
@@ -92,9 +93,7 @@
         </div>
 
     </div>
-    <div class="m-t-4 text-center">
-        <p class="account-copyright">2020 © Bimbelajj.com</p>
-    </div>
+
 </div>
 
 
