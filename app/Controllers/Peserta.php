@@ -29,8 +29,7 @@ class Peserta extends BaseController
             'dt'    => $saya
         ];
 
-        return view('layoutView', $data);
 
-        return view('registrasi/suksesView', $data);
+        return view('peserta/indexView', $data);
     }
 }

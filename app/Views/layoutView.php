@@ -162,62 +162,8 @@
 
             <!-- Start Page content -->
             <div class="content">
-                <div class="container-fluid">
-                    <div class="card-box">
 
-                        <div class="row">
-                            <div class="col-sm-6 m-t-20 p-5">
-                                <h4 class="m-t-0 header-title">Pemberitahuan</h4>
-                                <p class="m-b-30">
-                                    berikut adalah hal-hal yang harus di perhatikan oleh peserta baru.
-                                    Data anda sudah tersimpan di Database kami. untuk terdaftar sebagai member
-                                    silahkan lakukan pembaran ke rekening Bank BCA 350714225400008 atas nama
-                                    bimbelajj. kirimkan bukti tranfer melalui WA ke nomor 081555333123.
-                                    tim kami akan segera memproses keanggota-an anda di bimbelajj.
-                                </p>
-                                <p>Terima Kasih</p>
-                            </div>
-
-                            <div class="col-sm-6 m-t-20 p-5">
-                                <h4 class="m-t-0 header-title">Berikut data pendaftaran anda</h4>
-
-                                <dl class="row">
-                                    <dt class="col-sm-3">Nama</dt>
-                                    <dd class="col-sm-9"><?= $dt['nama']; ?></dd>
-
-                                    <dt class="col-sm-3">Tgl Lahir</dt>
-                                    <dd class="col-sm-9"><?= $dt['tgl_lahir']; ?></dd>
-
-                                    <dt class="col-sm-3">Alamat</dt>
-                                    <dd class="col-sm-9"><?= $dt['alamat']; ?></dd>
-
-                                    <dt class="col-sm-3">Nomor HP</dt>
-                                    <dd class="col-sm-9"><?= $dt['nomor_hp']; ?></dd>
-
-                                    <dt class="col-sm-3">Asal Sekolah</dt>
-                                    <dd class="col-sm-9"><?= $dt['asal_sekolah']; ?></dd>
-
-                                    <dt class="col-sm-3">Alamat Sekolah</dt>
-                                    <dd class="col-sm-9"><?= $dt['alamat_sekolah']; ?></dd>
-
-                                    <dt class="col-sm-3">Kelas</dt>
-                                    <dd class="col-sm-9"><?= $dt['nama_kelas']; ?></dd>
-
-                                    <dt class="col-sm-3">Program Pilihan</dt>
-                                    <dd class="col-sm-9"><?= $dt['nama_program']; ?></dd>
-
-                                </dl>
-
-                            </div>
-
-                        </div>
-                        <!-- end row -->
-
-                    </div>
-
-
-                </div> <!-- container -->
-
+                <?= $this->renderSection('content'); ?>
             </div> <!-- content -->
 
             <footer class="footer text-right">

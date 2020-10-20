@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 
 
+
 <div class="card">
     <div class="card-block">
 
@@ -10,20 +11,20 @@
             <div class="card-box p-5">
                 <h2 class="text-uppercase text-center pb-0">
                     <a href="index.html" class="text-success">
-                        <span><img src="<?= $bgLogo ?>" alt="" height="26"></span>
+                        <span><img src="<?= $bgLogo; ?>" alt="" height="26"></span>
                     </a>
                 </h2>
                 <div class="row pb-4">
                     <div class="col-sm-12 text-center">
-                        <p class="text-muted">Registrasi Peserta Baru Bimbelajj </p>
+                        <p class="text-muted"><?= $keterangan; ?></p>
                         <hr>
                     </div>
                 </div>
-
-                <?php echo form_open('registrasi/simpan', 'class="form-horizontal"'); ?>
+                <?php echo form_open($proses, 'class="form-horizontal"'); ?>
+                <?php $lst = ['username', 'password', 'nama', 'nomor_hp', 'jabatan', 'user_level', 'status']; ?>
 
                 <?php
-                $fld = 'nama';
+                $fld = $lst[0];
                 $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
                 $extra = [
                     'id' => $fld,
@@ -31,11 +32,17 @@
                     'required' => 'required'
                 ];
                 $val = (old($fld) != null) ? old($fld) : '';
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
+                }
                 $err = $validasi->getError($fld);
                 ?>
+
                 <div class="form-group row m-b-20">
                     <div class="col-12">
-                        <?= form_label('Nama', $fld); ?>
+                        <?= form_label('Username', $fld); ?>
                         <?= form_input($fld, $val, $extra); ?>
                         <div class="invalid-feedback">
                             <?= $err ?>
@@ -44,7 +51,7 @@
                 </div>
 
                 <?php
-                $fld = 'username';
+                $fld = $lst[1];
                 $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
                 $extra = [
                     'id' => $fld,
@@ -52,11 +59,17 @@
                     'required' => 'required'
                 ];
                 $val = (old($fld) != null) ? old($fld) : '';
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
+                }
                 $err = $validasi->getError($fld);
                 ?>
+
                 <div class="form-group row m-b-20">
                     <div class="col-12">
-                        <?= form_label('Username, gunakan username ini untuk login', $fld); ?>
+                        <?= form_label('Username', $fld); ?>
                         <?= form_input($fld, $val, $extra); ?>
                         <div class="invalid-feedback">
                             <?= $err ?>
@@ -64,8 +77,8 @@
                     </div>
                 </div>
 
-                <?php $fld = 'tgl_lahir' ?>
                 <?php
+                $fld = $lst[2];
                 $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
                 $extra = [
                     'id' => $fld,
@@ -73,142 +86,26 @@
                     'required' => 'required'
                 ];
                 $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-                ?>
-                <div class="form-group row m-b-20">
-                    <div class="col-12">
-                        <?= form_label('Tgl Lahir', $fld); ?>
-                        <?= form_input($fld, $val, $extra, 'date'); ?>
-                        <div class="invalid-feedback">
-                            <?= $err ?>
-                        </div>
-                    </div>
-                </div>
-
-                <?php $fld = 'alamat'; ?>
-                <?php
-                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
-                $extra = [
-                    'id' => $fld,
-                    'class' => $class,
-                    'required' => 'required'
-                ];
-                $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-                ?>
-                <div class="form-group row m-b-20">
-                    <div class="col-12">
-                        <?= form_label('Alamat Rumah', $fld); ?>
-                        <?= form_input($fld, $val, $extra, 'text'); ?>
-                        <div class="invalid-feedback">
-                            <?= $err ?>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <?php $fld = 'nomor_hp'; ?>
-                <?php
-                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
-                $extra = [
-                    'id' => $fld,
-                    'class' => $class,
-                    'required' => 'required'
-                ];
-                $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-                ?>
-                <div class="form-group row m-b-20">
-                    <div class="col-12">
-                        <?= form_label('Nomor HP', $fld); ?>
-                        <?= form_input($fld, $val, $extra, 'text'); ?>
-                        <div class="invalid-feedback">
-                            <?= $err ?>
-                        </div>
-                    </div>
-                </div>
-
-
-                <?php $fld = 'asal_sekolah'; ?>
-                <?php
-                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
-                $extra = [
-                    'id' => $fld,
-                    'class' => $class,
-                    'required' => 'required'
-                ];
-                $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-                ?>
-                <div class="form-group row m-b-20">
-                    <div class="col-12">
-                        <?= form_label('Asal Sekolah', $fld); ?>
-                        <?= form_input($fld, $val, $extra, 'text'); ?>
-                        <div class="invalid-feedback">
-                            <?= $err ?>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <?php $fld = 'alamat_sekolah'; ?>
-                <?php
-                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
-                $extra = [
-                    'id' => $fld,
-                    'class' => $class,
-                    'required' => 'required'
-                ];
-                $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-                ?>
-
-                <div class="form-group row m-b-20">
-                    <div class="col-12">
-                        <?= form_label('Alamat Sekolah', $fld); ?>
-                        <?= form_input($fld, $val, $extra, 'text'); ?>
-                        <div class="invalid-feedback">
-                            <?= $err ?>
-                        </div>
-                    </div>
-                </div>
-
-
-                <?php $fld = 'kelas'; ?>
-
-                <?php
-                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
-                $extra = [
-                    'id' => $fld,
-                    'class' => $class,
-                    'required' => 'required'
-                ];
-                $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-
-                $options[''] = 'Pilih Kelas...';
-                foreach ($dtKelas as $opt) {
-                    $options1[$opt['id']] = $opt['nama_kelas'];
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
                 }
+                $err = $validasi->getError($fld);
                 ?>
+
                 <div class="form-group row m-b-20">
                     <div class="col-12">
-                        <?= form_label('Kelas', $fld); ?>
-                        <?= form_dropdown($fld, $options1, $val, $extra); ?>
+                        <?= form_label('Username', $fld); ?>
+                        <?= form_input($fld, $val, $extra); ?>
                         <div class="invalid-feedback">
                             <?= $err ?>
                         </div>
-
                     </div>
                 </div>
 
-
-
-
-                <?php $fld = 'program_pilihan'; ?>
                 <?php
+                $fld = $lst[3];
                 $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
                 $extra = [
                     'id' => $fld,
@@ -216,28 +113,110 @@
                     'required' => 'required'
                 ];
                 $val = (old($fld) != null) ? old($fld) : '';
-                $err = $validasi->getError($fld);
-
-                $options[''] = 'Program Pilihan...';
-                foreach ($dtProgram as $opt) {
-                    $options2[$opt['id']] = $opt['nama_program'];
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
                 }
+                $err = $validasi->getError($fld);
                 ?>
+
                 <div class="form-group row m-b-20">
                     <div class="col-12">
-                        <?= form_label('Program Pilihan', $fld); ?>
-                        <?= form_dropdown($fld, $options2, $val, $extra); ?>
+                        <?= form_label('Username', $fld); ?>
+                        <?= form_input($fld, $val, $extra); ?>
                         <div class="invalid-feedback">
                             <?= $err ?>
                         </div>
-
                     </div>
                 </div>
+
+                <?php
+                $fld = $lst[4];
+                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
+                $extra = [
+                    'id' => $fld,
+                    'class' => $class,
+                    'required' => 'required'
+                ];
+                $val = (old($fld) != null) ? old($fld) : '';
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
+                }
+                $err = $validasi->getError($fld);
+                ?>
+
+                <div class="form-group row m-b-20">
+                    <div class="col-12">
+                        <?= form_label('Username', $fld); ?>
+                        <?= form_input($fld, $val, $extra); ?>
+                        <div class="invalid-feedback">
+                            <?= $err ?>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                $fld = $lst[5];
+                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
+                $extra = [
+                    'id' => $fld,
+                    'class' => $class,
+                    'required' => 'required'
+                ];
+                $val = (old($fld) != null) ? old($fld) : '';
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
+                }
+                $err = $validasi->getError($fld);
+                ?>
+
+                <div class="form-group row m-b-20">
+                    <div class="col-12">
+                        <?= form_label('Username', $fld); ?>
+                        <?= form_input($fld, $val, $extra); ?>
+                        <div class="invalid-feedback">
+                            <?= $err ?>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                $fld = $lst[6];
+                $class = ($validasi->hasError($fld)) ? 'form-control is-invalid' : 'form-control';
+                $extra = [
+                    'id' => $fld,
+                    'class' => $class,
+                    'required' => 'required'
+                ];
+                $val = (old($fld) != null) ? old($fld) : '';
+                $session = session();
+                $flashdata = $session->getFlashdata($fld);
+                if ($flashdata != null) {
+                    $val = $flashdata;
+                }
+                $err = $validasi->getError($fld);
+                ?>
+
+                <div class="form-group row m-b-20">
+                    <div class="col-12">
+                        <?= form_label('Username', $fld); ?>
+                        <?= form_input($fld, $val, $extra); ?>
+                        <div class="invalid-feedback">
+                            <?= $err ?>
+                        </div>
+                    </div>
+                </div>
+
 
 
                 <div class="form-group row text-center m-t-10">
                     <div class="col-12">
-                        <button class="btn btn-block btn-custom waves-effect waves-light" type="submit">Simpan</button>
+                        <button class="btn btn-block btn-custom waves-effect waves-light" type="submit">Registrasi</button>
                     </div>
                 </div>
 
@@ -246,7 +225,7 @@
                 <div class="row m-t-50">
                     <div class="col-sm-12 text-center">
                         <hr>
-                        <p class="text-muted">Sudah terdaftar? <a href="<?= base_url() ?>/registrasi/login" class="text-dark m-l-5"><b>Login</b></a></p>
+                        <p class="text-muted">Belum punya akun? <a href="<?= base_url() ?>/admin/akun" class="text-dark m-l-5"><b>Registrasi</b></a></p>
                     </div>
                 </div>
 

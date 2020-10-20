@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 class Validation
 {
@@ -33,4 +35,26 @@ class Validation
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------
+
+	public $login = [
+		'username' => 'required',
+		'password' => 'required'
+	];
+
+	public $registrasiPeserta = [
+		'username' => 'required|alpha_numeric',
+		'password' => '',
+		'nama' => 'required|alpha_space',
+		'nomor_hp' => 'required|numeric',
+	];
+
+	public $registrasiAdmin = [
+		'username' => 'required|alpha_numeric',
+		'password' => '',
+		'nama' => 'required|alpha_space',
+		'nomor_hp' => 'required|numeric',
+		'jabatan' => '',
+		'user_level' => '',
+		'status' => ''
+	];
 }

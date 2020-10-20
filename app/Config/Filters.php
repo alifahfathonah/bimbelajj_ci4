@@ -21,7 +21,7 @@ class Filters extends BaseConfig
 		'before' => [
 			//'honeypot'
 			// 'csrf',
-			'auth' => ['except' => ['registrasi', 'registrasi/*']]
+			'auth' => ['except' => ['registrasi', 'registrasi/*', 'admin/akun', 'admin/akun/*']]
 		],
 		'after'  => [
 			'toolbar',

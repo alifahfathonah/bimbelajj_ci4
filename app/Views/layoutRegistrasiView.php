@@ -18,6 +18,11 @@
     <link href="<?= base_url() ?>/template/assets/css/style.css" rel="stylesheet" type="text/css" />
 
     <script src="<?= base_url() ?>/template/assets/js/modernizr.min.js"></script>
+    <style>
+        .account-copyright {
+            position: relative;
+        }
+    </style>
 
 </head>
 
