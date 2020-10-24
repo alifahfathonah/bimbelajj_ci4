@@ -2,10 +2,18 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
+//use App\Controllers\BaseController;
+use CodeIgniter\Controller;
+
 //===== ADMIN ========= 
-class Akun extends BaseController
+class Akun extends Controller
 {
+    public function __construct()
+    {
+        helper(['form', 'url']);
+        $this->session = session();
+        $this->validasi = \Config\Services::validation();
+    }
     public function index()
     {
         $data = [
@@ -30,12 +38,12 @@ class Akun extends BaseController
             $tbAdmin = new \App\Models\AdminModel;
             $row = $tbAdmin->where('username', $username)->first();
             if ($row) {
-                if ($row['password'] == $password) {
+                if ($row->password == $password) {
                     $sessData = [
-                        'id' => $row['id'],
+                        'id' => $row->id,
                         'isLoggedIn' => TRUE,
-                        'isAdmin' => TRUE,
-                        'userLevel' => $row['user_level']
+                        'userGroup' => 'Admin1',
+                        'userLevel' => $row->user_level
                     ];
                     $this->session->set($sessData);
 

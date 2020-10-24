@@ -50,14 +50,14 @@
                 <!-- User box -->
                 <div class="user-box">
                     <div class="user-img">
-                        <img src="<?= base_url() ?>/template/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
+                        <img src="<?= base_url('img/foto_profil') . '/' . $avatar ?>" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
                     </div>
                     <h5><a href="#"><?= $nama; ?></a> </h5>
                     <p class="text-muted"><?= $program; ?></p>
                 </div>
 
                 <!--- Sidemenu -->
-
+                <?php echo $this->include('layoutSideMenu') ?>
                 <!-- Sidebar -->
 
                 <div class="clearfix"></div>
@@ -89,49 +89,7 @@
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </li> -->
-
-
-
-
-
-                        <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="<?= base_url() ?>/template/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1"><?= $nama; ?><i class="mdi mdi-chevron-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
-                                <!-- item-->
-                                <div class="dropdown-item noti-title">
-                                    <h6 class="text-overflow m-0">Welcome !</h6>
-                                </div>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-head"></i> <span>My Account</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-cog"></i> <span>Settings</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-help"></i> <span>Support</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-lock"></i> <span>Lock Screen</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="<?= base_url() ?>/registrasi/logout" class="dropdown-item notify-item">
-                                    <i class="fi-power"></i> <span>Logout</span>
-                                </a>
-
-                            </div>
-                        </li>
-
+                        <?php echo $this->include('layoutTop') ?>
                     </ul>
 
                     <ul class="list-inline menu-left mb-0">
@@ -144,9 +102,9 @@
                             <div class="page-title-box">
                                 <h4 class="page-title"><?= $judulPage; ?> </h4>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Peserta</a></li>
-                                    <!-- <li class="breadcrumb-item"><a href="#">Dataku</a></li> -->
-                                    <li class="breadcrumb-item active">Dataku</li>
+                                    <?php foreach ($brcumb as $bc) : ?>
+                                        <li class="breadcrumb-item"><a href="#"><?= $bc; ?></a></li>
+                                    <?php endforeach ?>
                                 </ol>
                             </div>
                         </li>

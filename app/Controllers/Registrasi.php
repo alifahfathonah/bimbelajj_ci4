@@ -5,9 +5,17 @@ namespace App\Controllers;
 use App\Models\KelasModel;
 use App\Models\PesertaModel;
 use App\Models\ProgramModel;
+use CodeIgniter\Controller;
 
-class Registrasi extends BaseController
+class Registrasi extends Controller
 {
+
+    public function __construct()
+    {
+        helper(['form', 'url']);
+        $this->session = session();
+        $this->validasi = \Config\Services::validation();
+    }
     public function index()
     {
         $tbKelas = new KelasModel();
@@ -47,7 +55,7 @@ class Registrasi extends BaseController
         $html .= '<li>No HP ' . $hasil['nomor_hp'] . '</li>';
         $html .= '</ul>';
 
-        $this->_send_email('Peserta baru ' . $hasil['username'], $html);
+        // $this->_send_email('Peserta baru ' . $hasil['username'], $html);
         return redirect()->to('login')->with('username', $hasil['username']);
     }
 
@@ -81,12 +89,12 @@ class Registrasi extends BaseController
         $row = $peserta->where('username', $username)->first();
 
         if ($row) {
-            if ($row['password'] == $password) {
+            if ($row->password == $password) {
                 $sessData = [
-                    'id' => $row['id'],
-                    'isLoggedIn' => TRUE
+                    'id' => $row->id,
+                    'isLoggedIn' => TRUE,
+                    'userGroup' => 'Peserta'
                 ];
-
                 $this->session->set($sessData);
                 return redirect()->to(base_url('peserta'));
             }

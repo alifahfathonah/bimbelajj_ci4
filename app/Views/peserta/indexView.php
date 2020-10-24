@@ -26,33 +26,37 @@ echo $this->section('content');
 
                 <dl class="row">
                     <dt class="col-sm-3">Nama</dt>
-                    <dd class="col-sm-9"><?= $dt['nama']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->nama; ?></dd>
 
                     <dt class="col-sm-3">Tgl Lahir</dt>
-                    <dd class="col-sm-9"><?= $dt['tgl_lahir']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->tgl_lahir; ?></dd>
 
                     <dt class="col-sm-3">Alamat</dt>
-                    <dd class="col-sm-9"><?= $dt['alamat']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->alamat; ?></dd>
 
                     <dt class="col-sm-3">Nomor HP</dt>
-                    <dd class="col-sm-9"><?= $dt['nomor_hp']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->nomor_hp; ?></dd>
 
                     <dt class="col-sm-3">Asal Sekolah</dt>
-                    <dd class="col-sm-9"><?= $dt['asal_sekolah']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->asal_sekolah; ?></dd>
 
                     <dt class="col-sm-3">Alamat Sekolah</dt>
-                    <dd class="col-sm-9"><?= $dt['alamat_sekolah']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->alamat_sekolah; ?></dd>
 
                     <dt class="col-sm-3">Kelas</dt>
-                    <dd class="col-sm-9"><?= $dt['nama_kelas']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->nama_kelas; ?></dd>
 
                     <dt class="col-sm-3">Program Pilihan</dt>
-                    <dd class="col-sm-9"><?= $dt['nama_program']; ?></dd>
+                    <dd class="col-sm-9"><?= $dt->nama_program; ?></dd>
 
                 </dl>
 
             </div>
-
+            <hr>
+            <div class="text-right">
+                <a href="<?= $linkDetail; ?>" class="btn btn-primary">Detail</a>
+                <a href="<?= $linkEdit; ?>" class="btn btn-success">edit</a>
+            </div>
         </div>
         <!-- end row -->
 

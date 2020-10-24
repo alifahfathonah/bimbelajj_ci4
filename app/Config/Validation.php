@@ -48,13 +48,16 @@ class Validation
 		'nomor_hp' => 'required|numeric',
 	];
 
-	public $registrasiAdmin = [
+	public $admin = [
 		'username' => 'required|alpha_numeric',
-		'password' => '',
 		'nama' => 'required|alpha_space',
 		'nomor_hp' => 'required|numeric',
-		'jabatan' => '',
-		'user_level' => '',
-		'status' => ''
+	];
+
+	public $peserta = [
+		'username' => 'required|alpha_numeric',
+		'nama' => 'required|alpha_space',
+		'nomor_hp' => 'required|numeric',
+		'tgl_lahir' => 'required|valid_date',
 	];
 }
