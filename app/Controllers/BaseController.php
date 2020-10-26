@@ -71,6 +71,12 @@ class BaseController extends Controller
 				'href' => 'peserta',
 				'label' => 'Dashboard'
 			],
+			[
+				'nama' => 'ujian',
+				'icon' => 'fa fa-plane',
+				'href' => 'ujian',
+				'label' => 'Ujian'
+			],
 
 		];
 		//$this->session = session();

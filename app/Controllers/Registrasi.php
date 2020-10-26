@@ -92,6 +92,7 @@ class Registrasi extends Controller
             if ($row->password == $password) {
                 $sessData = [
                     'id' => $row->id,
+                    'id_soal' => 1,
                     'isLoggedIn' => TRUE,
                     'userGroup' => 'Peserta'
                 ];

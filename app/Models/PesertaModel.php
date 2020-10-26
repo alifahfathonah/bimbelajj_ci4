@@ -13,8 +13,8 @@ class PesertaModel extends Model
 
     public function join($id = NULL)
     {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('tbl_peserta a');
+        //$db      = \Config\Database::connect();
+        $builder = $this->db->table('tbl_peserta a');
         $builder->select('a.*,b.nama_program,c.nama_kelas',);
         $builder->join('tbl_program_pilihan b', 'a.program_pilihan = b.id');
         $builder->join('tbl_kelas c', 'a.kelas = c.id');

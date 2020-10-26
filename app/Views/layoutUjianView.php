@@ -155,6 +155,129 @@
     <script src="<?= base_url() ?>/template/assets/js/jquery.core.js"></script>
     <script src="<?= base_url() ?>/template/assets/js/jquery.app.js"></script>
 
+    <script>
+        var now_index = 0;
+        var list_id = <?php echo $dt->list_soal ?>; //array
+        console.log(list_id);
+        var jml_soal = <?= $jml_soal; ?>;
+        var id_peserta = <?= $id_peserta; ?>;
+        var jwb = {};
+        $(document).ready(function() {
+            var iniSiapa = getCookie("id_peserta");
+            if (iniSiapa == id_peserta) {
+                var ambiljawaban = getCookie("jawaban");
+                jwb = JSON.parse(ambiljawaban);
+            } else { //jika peserta beda
+                for (i = 0; i < list_id.length; i++) {
+                    jwb[list_id[i]] = '-';
+                };
+                setCookie('id_peserta', id_peserta, 1);
+                setCookie('jawaban', JSON.stringify(jwb), 1);
+            }
+            for (i = 0; i < jml_soal; i++) {
+                $('#goto' + i + ' > span').text(jwb[list_id[i]].toUpperCase());
+                if (jwb[list_id[i]] == '-') {
+                    $('#goto' + i + ' > span').addClass('badge-light');
+                } else {
+                    $('#goto' + i + ' > span').addClass('badge-primary');
+                }
+            }
+            getData(list_id[now_index]);
+
+            $("form").submit(function() {
+                var $input = $(this).find("input[name=jawaban]");
+                $input.val(JSON.stringify(jwb));
+            });
+        });
+
+
+        function setJwb(x) {
+            $('#goto' + now_index + ' > span').text(x.toUpperCase());
+            $('#goto' + now_index + ' > span').addClass('badge-primary');
+            jwb[list_id[now_index]] = x;
+            setCookie('jawaban', JSON.stringify(jwb), 1);
+        }
+
+
+        function setRadio(cinjwb) {
+            if (cinjwb != "-") {
+                $("#rd" + cinjwb).prop("checked", true);
+            } else {
+                $("input:radio").prop("checked", false);
+            }
+        }
+
+        function getNext() {
+            if (now_index < (jml_soal - 1)) {
+                now_index++;
+                getData(list_id[now_index]);
+            }
+        }
+
+        function getPrev() {
+            if (now_index > 0) {
+                now_index--;
+                getData(list_id[now_index]);
+            }
+        }
+
+        function ragu() {
+            $('#goto' + now_index + ' > span').addClass('badge-warning');
+        }
+
+        function goTo(idx) {
+            now_index = idx;
+            getData(list_id[now_index]);
+        }
+
+
+        function getData(id) {
+            setRadio(jwb[id]);
+            $.post("<?= $ajax_getData ?>", {
+                    "id": id
+                },
+                function(data, status) {
+                    if (status == 'success') {
+                        var mydata = JSON.parse(data);
+                        $('#pertanyaan').html(mydata['pertanyaan']);
+                        $('#soal-keberapa').text('Soal ke-' + (now_index + 1));
+
+                    }
+                });
+
+        }
+
+        function apakahSelesai() {
+            $('input[name="jawaban"]').val(jwb);
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/";
+        };
+    </script>
+
 </body>
 
 </html>
