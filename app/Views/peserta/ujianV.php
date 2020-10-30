@@ -3,6 +3,33 @@ echo $this->extend('layoutUjianView');
 
 echo $this->section('content');
 ?>
+<link href="<?= base_url(); ?>/plugins/spinkit/spinkit.css" rel="stylesheet" />
+<style>
+    #spinner {
+        width: 60px;
+        height: 60px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        margin: -30px 0 0 -30px;
+    }
+</style>
+<div id="spinner" class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card-box">
@@ -32,11 +59,14 @@ echo $this->section('content');
     <div class="col-sm-8">
         <div class="card-box">
             <h4 id="soal-keberapa" class="header-title mb-4">Soal ke 1</h4>
-            <div id="pertanyaan"></div>
+
+            <div id="pertanyaan">
+
+            </div>
         </div>
         <div class="card-box">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 text-center mb-4">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="jawaban" id="rda" value="A" onclick="setJwb('a')">
                         <label class="form-check-label" for="rda">A</label>
@@ -59,12 +89,13 @@ echo $this->section('content');
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="button-list text-right">
+                    <div class="button-list text-center">
                         <button id="btnPrev" type="button" class="btn btn-primary waves-light waves-effect" onclick="getPrev()"><i class="fa fa-arrow-left"></i></button>
                         <button id="btnRagu" onclick="ragu()" type="button" class="btn btn-warning waves-light waves-effect">Ragu</button>
                         <button id="btnNext" type="button" class="btn btn-primary waves-light waves-effect" onclick="getNext()"><i class="fa fa-arrow-right"></i></button>
 
                     </div>
+
                 </div>
             </div>
         </div>

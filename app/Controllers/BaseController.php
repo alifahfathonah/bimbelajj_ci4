@@ -62,6 +62,12 @@ class BaseController extends Controller
 				'href' => 'admin/data_peserta',
 				'label' => 'Data Peserta'
 			],
+			[
+				'nama' => 'soal',
+				'icon' => 'fa fa-book',
+				'href' => 'admin/soal',
+				'label' => 'Data Soal'
+			],
 		];
 
 		$sidePeserta = [

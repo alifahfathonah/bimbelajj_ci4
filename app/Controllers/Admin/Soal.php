@@ -4,30 +4,32 @@ namespace App\Controllers\Admin;
 
 //use App\Controllers\BaseController;
 
-class Data_admin extends \App\Controllers\BaseController
+class Soal extends \App\Controllers\BaseController
 {
     public function __construct()
     {
-        $this->tbMain = new \App\Models\AdminModel();
-        $this->baseurl = base_url('admin/data_admin') . '/';
-        $this->folderView = 'admin/dataAdmin/';
+        $this->tbMain = new \App\Models\SoalModel();
+        $this->entiti = new \App\Entities\Soal();
+        $this->baseurl = base_url('admin/soal') . '/';
+        $this->folderView = 'admin/soal/';
     }
     public function index()
     {
-        if ($this->session->has('katakunci')) {
-            $keyword = $this->session->get('katakunci');
-            $tabel = $this->tbMain->cari($keyword);
+        if ($this->session->has('pencarian')) {
+            $cari = $this->session->get('pencarian');
+            $tabel = $this->tbMain->cari($cari);
         } else {
-            $tabel = $this->tbMain;
+            //$tb = new \App\Models\SoalBaruModel;
+            $tabel = $this->tbMain->gabung();
         }
-        $brcumb = ['admin', 'dashboard'];
+        $brcumb = ['admin', 'soal'];
         $data = [
-            'judulWeb' => 'Admin',
-            'judulPage' => 'Halaman Admin',
+            'judulWeb' => 'Data Soal',
+            'judulPage' => 'Data Soal',
             'brcumb' => $brcumb,
-            'dts'    => $tabel->paginate(6, 'group1'),
+            'dts'    => $tabel->paginate(3, 'group1'),
             'pager'   => $tabel->pager,
-            'aktif' => 'dataAdmin',
+            'aktif' => 'soal',
             'validasi' => $this->validasi,
             'baseUrl' => $this->baseurl,
         ];
@@ -38,18 +40,18 @@ class Data_admin extends \App\Controllers\BaseController
 
     public function cari()
     {
-        $rules = ['keyword' => 'required|alpha_numeric'];
+        $rules = ['cari' => 'required|alpha_numeric'];
         if (!$this->validate($rules)) {
             return redirect()->to('index')->withInput()->with('validasi', $this->validasi);
         }
-        $keyword = $this->request->getPost('keyword');
-        $this->session->set('katakunci', $keyword);
+        $cari = $this->request->getPost('cari');
+        $this->session->set('pencarian', $cari);
         return redirect()->to('index');
     }
 
     public function reset_keyword()
     {
-        $this->session->remove('katakunci');
+        $this->session->remove('pencarian');
         return redirect()->to('index');
     }
 

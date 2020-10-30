@@ -52,6 +52,7 @@ class Peserta extends BaseController
             'dt'    => $saya[0],
             'aktif' => 'Dashboard',
             'brcumb' => $brcumb,
+            'linkUpload' => base_url('peserta/upload'),
             'linkCancel' => base_url('peserta/index'),
             'linkEdit' => base_url('peserta/edit')
         ];
@@ -91,16 +92,47 @@ class Peserta extends BaseController
         if ($errors) {
             return redirect()->to('edit')->withInput();
         } else {
-            $entiti = new \App\Entities\Peserta();
-            $entiti->id = $hasil['id'];
-            $entiti->fill($hasil);
-            $tb = new PesertaModel();
-            $tb->save($entiti);
+
 
             //$id = $this->tbAdmin->insertID();
 
             // /barang/view/$id
             return redirect()->to(base_url('peserta'));
         }
+    }
+    public function upload()
+    {
+        $newId = $this->session->get('id');
+        $tb = new PesertaModel();
+        $saya = $tb->find($newId);
+
+        $this->data = [
+            'dt' => $saya,
+            'linkBack' => base_url('peserta/detail'),
+            'linkUpload' => base_url('peserta/upload_proses')
+        ];
+        return view('peserta/cropperV', $this->data);
+    }
+
+    public function upload_proses()
+    {
+        $folderPath = 'img/foto_profil/';
+
+        $image_parts = explode(";base64,", $_POST['image']);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        //$image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $namaFile = uniqid() . '.png';
+        $file = $folderPath . $namaFile;
+        file_put_contents($file, $image_base64);
+        $dtin = [
+            'foto' => $namaFile
+        ];
+        $entiti = new \App\Entities\Peserta();
+        $entiti->id = $this->session->get('id');
+        $entiti->fill($dtin);
+        $tb = new PesertaModel();
+        $tb->save($entiti);
+        return $file;
     }
 }

@@ -3,12 +3,12 @@
 
 
 
-<div class="card">
+<div class="card" style="background-color: black;">
     <div class="card-block">
 
         <div class="account-box">
 
-            <div class="card-box p-5">
+            <div class="card-box p-5" style="background-color: gray;">
                 <h2 class="text-uppercase text-center pb-0">
                     <a href="index.html" class="text-success">
                         <span><img src="<?= $bgLogo; ?>" alt="" height="26"></span>
@@ -16,7 +16,7 @@
                 </h2>
                 <div class="row pb-4">
                     <div class="col-sm-12 text-center">
-                        <p class="text-muted"><?= $keterangan; ?></p>
+                        <p class="text-white"><?= $keterangan; ?></p>
                         <hr>
                     </div>
                 </div>

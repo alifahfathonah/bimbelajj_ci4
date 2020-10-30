@@ -5,7 +5,7 @@
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
         <!-- item-->
         <div class="dropdown-item noti-title">
-            <h6 class="text-overflow m-0">Welcome !</h6>
+            <h6 class="text-overflow m-0">Selamat Datang !</h6>
         </div>
 
         <!-- item-->
@@ -14,8 +14,8 @@
             <i class="fi-head"></i> <span>My Account</span>
         </a> -->
 
-        <a href="<?= base_url('admin/dashboard/akun_saya'); ?>" class="dropdown-item notify-item">
-            <i class="fi-head"></i> <span>My Account</span>
+        <a href="<?= base_url('peserta/detail'); ?>" class="dropdown-item notify-item">
+            <i class="fi-head"></i> <span>Profil</span>
         </a>
 
         <!-- item-->

@@ -16,6 +16,7 @@ echo $this->section('content');
                     <li>Biaya pendaftaran adalah Rp 150.000</li>
                     <li>Transfer ke rekening BANK MANDIRI 1400019999490 an. Drs Muhammad Jailani ( CEO Ajj)</li>
                     <li>kirimkan bukti transfer melalui WA ke No. 087777287561</li>
+                    <li>Pendaftar akan mendapat buku Modul Materi Ajar</li>
                 </ol>
                 <p>Tim kami akan segera memperoses keanggotaan anda di Bimbel Ajj. </p>
                 <p>Terima Kasih</p>

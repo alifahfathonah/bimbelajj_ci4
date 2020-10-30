@@ -10,6 +10,10 @@ use App\Models\UjianModel;
 
 class Ujian extends BaseController
 {
+
+    public function __construct()
+    {
+    }
     public function index()
     {
         $id_peserta = $this->session->get('id');
@@ -60,42 +64,36 @@ class Ujian extends BaseController
     {
         $post = $this->request->getPost();
         $arr = json_decode($post['jawaban'], 1);
-        dd($post);
-    }
-    public function index1()
-    {
-        $detailModel = new SoalDetailModel();
-        $detail = $detailModel->cari(['id_soal' => 1]);
-        $strJsonFileContents = file_get_contents('tes.json');
-        // Convert to array 
-        $array = json_decode($strJsonFileContents, true);
-        dd($array);
 
-        $id_peserta = $this->session->get('id');
         $id_soal = $this->session->get('id_soal');
-        date_default_timezone_set("Asia/Jakarta");
-        $mulai = date("Y-m-d h:i:sa");
-
-        $soalModel = new SoalModel();
-        $dt_soal = $soalModel->find($id_soal);
-        $waktu = $dt_soal->waktu;
-        $str = '+' . $waktu . ' minutes';
-        $selesai = date("Y-m-d H:i:sa", strtotime($str, strtotime($mulai)));
 
         $detailModel = new SoalDetailModel();
         $detail = $detailModel->cari(['id_soal' => $id_soal]);
-        $arr = [
-            'id_peserta' => $id_peserta,
-            'id_soal' => $id_soal,
-            'detail' => $detail,
-            'mulai' => $mulai,
-            'selesai' => $selesai
-        ];
 
-        $str = $id_peserta . '_' . $id_soal . '.json';
-        $myfile = fopen($str, "w") or die("Unable to open file!");
-        fwrite($myfile, json_encode($arr));
-        fclose($myfile);
+        $arrlist = array();
+        foreach ($detail as $dt) {
+            $arrlist[$dt->id] = $dt->kunci;
+        }
+
+        //membandingkan ambil yang sama
+        $result = array_intersect_assoc($arrlist, $arr);
+
+        //jumlah benar
+        $jml_benar = count($result);
+        $jml_soal = count($arrlist);
+        $nilai = round($jml_benar * 100 / $jml_soal, 2);
+        $brcumb = ['peserta', 'ujian'];
+        $data = [
+            'judulWeb' => 'Ujian',
+            'judulPage' => 'Try Out',
+            'aktif' => 'Ujian',
+            'brcumb' => $brcumb,
+            'jml_soal' => $jml_soal,
+            'jml_benar' => $jml_benar,
+            'nilai' => $nilai
+        ];
+        $data = array_merge($data, $this->data);
+        return view('peserta/hasilUjianV', $data);
     }
 
     public function persiapan()

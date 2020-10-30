@@ -163,6 +163,7 @@
         var id_peserta = <?= $id_peserta; ?>;
         var jwb = {};
         $(document).ready(function() {
+            $('#spinner').hide();
             var iniSiapa = getCookie("id_peserta");
             if (iniSiapa == id_peserta) {
                 var ambiljawaban = getCookie("jawaban");
@@ -232,6 +233,7 @@
 
 
         function getData(id) {
+            $('#spinner').show();
             setRadio(jwb[id]);
             $.post("<?= $ajax_getData ?>", {
                     "id": id
@@ -241,7 +243,7 @@
                         var mydata = JSON.parse(data);
                         $('#pertanyaan').html(mydata['pertanyaan']);
                         $('#soal-keberapa').text('Soal ke-' + (now_index + 1));
-
+                        $('#spinner').hide();
                     }
                 });
 
@@ -249,6 +251,7 @@
 
         function apakahSelesai() {
             $('input[name="jawaban"]').val(jwb);
+            deleteCookie();
         }
 
         function setCookie(cname, cvalue, exdays) {

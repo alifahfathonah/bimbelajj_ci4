@@ -12,7 +12,7 @@ class Auth implements FilterInterface
     {
         // Do something here
         if (!session()->has('isLoggedIn')) {
-            return redirect()->to('registrasi/login');
+            return redirect()->to('login');
         }
     }
 
